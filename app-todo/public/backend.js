@@ -1,0 +1,1 @@
+window.backendBaseUrl = "http://localhost:3000";

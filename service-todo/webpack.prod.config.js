@@ -8,7 +8,6 @@ const WebpackBar = require('webpackbar');
 let externals = _externals();
 
 module.exports = {
-  watch: true,
   mode: 'production',
   stats: 'errors-warnings',
   target: 'node',
