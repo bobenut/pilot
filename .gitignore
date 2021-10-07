@@ -1,3 +1,4 @@
 service-todo/package-lock.json
 service-todo/node_modules
 service-todo/dist
+.DS_Store
