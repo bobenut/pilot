@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new WebpackBar(),
-    new CopyWebpackPlugin({ patterns: [{ from: 'package.json' }] }),
+    new CopyWebpackPlugin({ patterns: [{ from: 'package.json' }, {from: './config', to: 'config'}] }),
     new NodemonPlugin({
       nodeArgs: ['--no-deprecation'],
     }),
