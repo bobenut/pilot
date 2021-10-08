@@ -7,7 +7,7 @@
     "dev": "node ./src/index.js",
     "start": "webpack --config webpack.dev.config.js",
     "build": "webpack --config webpack.prod.config.js",
-    "docker-local": "docker build -t service-todo:latest .",
+    "docker-local": "docker stop service-todo && docker rm service-todo && docker rmi -f service-todo:latest && docker build -t service-todo:latest .",
     "docker": "docker build -t registry.cn-shanghai.aliyuncs.com/h705c/todolist365-service-task:latest && docker push registry.cn-shanghai.aliyuncs.com/h705c/todolist365-service-task:latest"
   },
   "devDependencies": {
