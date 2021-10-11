@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "docker-local": "docker build -t app-todo:latest ."
+    "docker-local": "docker build -t app-todo:latest .",
+    "docker-registry": "docker build -t registry.cn-shanghai.aliyuncs.com/space365/pilot-app-todo:latest . && docker push registry.cn-shanghai.aliyuncs.com/space365/pilot-app-todo:latest"
   },
   "eslintConfig": {
     "extends": [
