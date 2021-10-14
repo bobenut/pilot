@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:v2.5
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik.yaml:/etc/traefik/traefik.yaml"
+
+  app-todo:
+    image: registry.cn-shanghai.aliyuncs.com/space365/pilot-app-todo:latest
+    environment:
+      - BACKEND_BASE_URL=http://localhost/api/todo
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app-todo.entrypoints=web"
+      - "traefik.http.routers.app-todo.rule=Host(`pilot365.io`)"
+      - "traefik.http.routers.app-todo.rule=PathPrefix(`/app/todo`)"
+      - 'traefik.http.routers.app-todo.middlewares=app-todo-stripprefix'
+      - 'traefik.http.middlewares.app-todo-stripprefix.stripprefix.prefixes=/app/todo'
+      - 'traefik.http.middlewares.app-todo-stripprefix.stripprefix.forceSlash=false'
+
+  service-todo:
+    image: registry.cn-shanghai.aliyuncs.com/space365/pilot-service-todo:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.serive-todo.entrypoints=web"
+      - "traefik.http.routers.serive-todo.rule=Host(`pilot365.io`)"
+      - "traefik.http.routers.serive-todo.rule=PathPrefix(`/api/todo`)"
+      - 'traefik.http.routers.serive-todo.middlewares=serive-todo-stripprefix'
+      - 'traefik.http.middlewares.serive-todo-stripprefix.stripprefix.prefixes=/api/todo'
+      - 'traefik.http.middlewares.serive-todo-stripprefix.stripprefix.forceSlash=false'
+      - 'traefik.http.services.id.loadbalancer.server.port=3000'
